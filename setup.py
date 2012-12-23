@@ -26,7 +26,7 @@ setup(
   },
   ##  http://pypi.python.org/pypi?:action=list_classifiers
   classifiers  = [
-    'Development Status :: 1 - Planning',
+    'Development Status :: 2 - Pre-Alpha',
     'Environment :: Console',
     'Intended Audience :: End Users/Desktop',
     'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
