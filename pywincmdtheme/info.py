@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # coding:utf-8 vi:et:ts=2
 
+# pywincmdtheme information
+# Copyright 2012 Grigory Petrov
+# See LICENSE for details.
+
 import os
 import subprocess
 
