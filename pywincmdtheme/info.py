@@ -12,7 +12,7 @@ DIR_ROOT = os.sep.join( DIR_THIS.split( os.sep )[ : -1 ] )
 
 try :
   ##  If this file exist, package is installed from pypi.
-  with open( '../PKG-INFO' ) as oFile :
+  with open( 'PKG-INFO' ) as oFile :
     import rfc822
     import re
     sVer = rfc822.Message( oFile ).get( 'version' ).strip()
