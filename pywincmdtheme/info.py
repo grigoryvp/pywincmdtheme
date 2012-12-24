@@ -5,24 +5,25 @@
 # Copyright 2012 Grigory Petrov
 # See LICENSE for details.
 
+import os
+DIR_THIS = os.path.dirname( os.path.abspath( __file__ ) )
+##! One dir up in path, where |setup.py| and |.hg| are placed.
+DIR_ROOT = os.sep.join( DIR_THIS.split( os.sep )[ : -1 ] )
+
 try :
   ##  If this file exist, package is installed from pypi.
   with open( '../PKG-INFO' ) as oFile :
     import rfc822
     import re
-    sVer = rfc822.Message( oFile ).items().get( 'Version' ).strip()
+    sVer = rfc822.Message( oFile ).get( 'version' ).strip()
     oMatch = re.match( r'\d+\.\d+\.(\d+)', sVer )
     if oMatch :
       VER_BUILD = int( oMatch.group( 1 ) )
 except :
   ##  Not installed from pypi, try to get version from VCS.
   try :
-    import os
     import subprocess
-    sDir = os.path.dirname( os.path.abspath( __file__ ) )
-    ##! Go one dir up in path, where |.hg| is placed.
-    sDir = os.sep.join( sDir.split( os.sep )[ : -1 ] )
-    sId = subprocess.check_output( [ 'hg', '-R', sDir, 'id', '-n' ] )
+    sId = subprocess.check_output( [ 'hg', '-R', DIR_ROOT, 'id', '-n' ] )
     VER_BUILD = int( sId.strip( '+\n' ) )
   except subprocess.CalledProcessError :
     pass
