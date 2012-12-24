@@ -4,7 +4,6 @@
 from setuptools import setup
 from pywincmdtheme.info import NAME_SHORT, DESCR, VER_TXT
 
-
 setup(
   name         = NAME_SHORT,
   version      = VER_TXT,

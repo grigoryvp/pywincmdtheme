@@ -5,8 +5,27 @@
 # Copyright 2012 Grigory Petrov
 # See LICENSE for details.
 
-import os
-import subprocess
+try :
+  ##  If this file exist, package is installed from pypi.
+  with open( '../PKG-INFO' ) as oFile :
+    import rfc822
+    import re
+    sVer = rfc822.Message( oFile ).items().get( 'Version' ).strip()
+    oMatch = re.match( r'\d+\.\d+\.(\d+)', sVer )
+    if oMatch :
+      VER_BUILD = int( oMatch.group( 1 ) )
+except :
+  ##  Not installed from pypi, try to get version from VCS.
+  try :
+    import os
+    import subprocess
+    sDir = os.path.dirname( os.path.abspath( __file__ ) )
+    ##! Go one dir up in path, where |.hg| is placed.
+    sDir = os.sep.join( sDir.split( os.sep )[ : -1 ] )
+    sId = subprocess.check_output( [ 'hg', '-R', sDir, 'id', '-n' ] )
+    VER_BUILD = int( sId.strip( '+\n' ) )
+  except subprocess.CalledProcessError :
+    pass
 
 NAME_SHORT = "pywincmdtheme"
 NAME_FULL = "Tool that change windows cmd and powershell color theme."
@@ -17,13 +36,5 @@ DESCR = """
 """.replace( '\n', '' ).strip().replace( '  ', ' ' )
 VER_MAJOR = 0
 VER_MINOR = 1
-try :
-  sDir = os.path.dirname( os.path.abspath( __file__ ) )
-  ##! Go one dir up in path, where |.hg| is placed.
-  sDir = os.sep.join( sDir.split( os.sep )[ : -1 ] )
-  sId = subprocess.check_output( [ 'hg', '-R', sDir, 'id', '-n' ] )
-  VER_BUILD = int( sId.strip( '+\n' ) )
-except subprocess.CalledProcessError :
-  VER_BUILD = 0
 VER_TXT = ".".join( map( str, [ VER_MAJOR, VER_MINOR, VER_BUILD ] ) )
 
