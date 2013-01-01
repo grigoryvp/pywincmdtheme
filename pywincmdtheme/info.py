@@ -25,8 +25,9 @@ except :
     import subprocess
     sId = subprocess.check_output( [ 'hg', '-R', DIR_ROOT, 'id', '-n' ] )
     VER_BUILD = int( sId.strip( '+\n' ) )
-  except subprocess.CalledProcessError :
-    pass
+  except (subprocess.CalledProcessError, OSError) :
+    ##* Temporary hack, need better install system.
+    VER_BUILD = 0
 
 NAME_SHORT = "pywincmdtheme"
 NAME_FULL = "Tool that change windows cmd and powershell color theme."
