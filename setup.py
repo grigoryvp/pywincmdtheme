@@ -1,10 +1,37 @@
 #!/usr/bin/env python
 # coding:utf-8 vi:et:ts=2
 
-from setuptools import setup
-from pywincmdtheme.info import NAME_SHORT, DESCR, VER_TXT
+# autowsgiserver distribute install.
+# Copyright 2013 Grigory Petrov
+# See LICENSE for details.
 
-setup(
+import os
+import setuptools
+import subprocess
+
+from autowsgiserver.info import NAME_SHORT, DESCR, VER_MAJOR, VER_MINOR
+
+##  Get version from VCS.
+VER_BUILD = 0
+try :
+  ##  If this file exist, package is installed from pypi and this file is
+  ##  executed with 'egg_info' command-line argument.
+  with open( 'PKG-INFO' ) as oFile :
+    import rfc822
+    import re
+    sVer = rfc822.Message( oFile ).get( 'version' )
+    if sVer :
+      oMatch = re.match( r'\d+\.\d+\.(\d+)', sVer.strip() )
+      if oMatch :
+        VER_BUILD = int( oMatch.group( 1 ) )
+except IOError :
+  DIR_THIS = os.path.dirname( os.path.abspath( __file__ ) )
+  sId = subprocess.check_output( [ 'hg', '-R', DIR_THIS, 'id', '-n' ] )
+  VER_BUILD = int( sId.strip( '+\n' ) )
+
+VER_TXT = ".".join( map( str, [ VER_MAJOR, VER_MINOR, VER_BUILD ] ) )
+
+setuptools.setup(
   name         = NAME_SHORT,
   version      = VER_TXT,
   description  = DESCR,
@@ -25,14 +52,14 @@ setup(
   },
   ##  http://pypi.python.org/pypi?:action=list_classifiers
   classifiers  = [
-    'Development Status :: 2 - Pre-Alpha',
-    'Environment :: Console',
-    'Intended Audience :: End Users/Desktop',
-    'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
-    'Natural Language :: English',
-    'Operating System :: Microsoft :: Windows',
-    'Programming Language :: Python :: 2.7',
-    'Topic :: Desktop Environment',
+    ('Development Status :: 2 - Pre-Alpha'),
+    ('Environment :: Console'),
+    ('Intended Audience :: End Users/Desktop'),
+    ('License :: OSI Approved :: GNU General Public License v3 (GPLv3)'),
+    ('Natural Language :: English'),
+    ('Operating System :: Microsoft :: Windows'),
+    ('Programming Language :: Python :: 2.7'),
+    ('Topic :: Desktop Environment'),
   ]
 )
 

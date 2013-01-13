@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # coding:utf-8 vi:et:ts=2
 
-# pywincmdtheme core
-# Copyright 2012 Grigory Petrov
+# pywincmdtheme implementation.
+# Copyright 2013 Grigory Petrov
 # See LICENSE for details.
 
 import os
@@ -12,6 +12,7 @@ import copy
 import _winreg
 from win32com.shell import shell, shellcon
 import pythoncom
+
 
 def main() :
 
