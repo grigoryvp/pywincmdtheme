@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding:utf-8 vi:et:ts=2
 
-# autowsgiserver distribute install.
+# pywincmdtheme distribute install.
 # Copyright 2013 Grigory Petrov
 # See LICENSE for details.
 
@@ -9,7 +9,7 @@ import os
 import setuptools
 import subprocess
 
-from autowsgiserver.info import NAME_SHORT, DESCR, VER_MAJOR, VER_MINOR
+from pywincmdtheme.info import NAME_SHORT, DESCR, VER_MAJOR, VER_MINOR
 
 ##  Get version from VCS.
 VER_BUILD = 0
